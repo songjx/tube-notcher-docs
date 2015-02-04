@@ -1,0 +1,12 @@
+*tmp
+*~
+*.aux
+*.log
+*.toc
+*.dvi
+*.synctex.gz
+*.out
+*.blg
+*.bbl
+*.bak
+/*.pdf
