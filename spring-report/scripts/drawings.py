@@ -1,7 +1,7 @@
 import os
 
 os.chdir('..')
-walk = os.walk('./drawings')
+walk = os.walk('./Drawings')
 
 #latex integration
 latexLevels = ['\chapter','\section','\subsection','\subsubsection']
