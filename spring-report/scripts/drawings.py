@@ -6,15 +6,16 @@ walk = os.walk('./drawings')
 #latex integration
 latexLevels = ['\chapter','\section','\subsection','\subsubsection']
 
-for roots, dirs, files in walk:
-    level = os.path.relpath(roots).count(os.sep)
-    print(latexLevels[level],'{',os.path.basename(roots),'}',sep='')
-    files = [os.path.splitext(file)[0] for file in files]
-    #print('files:',files)
-    for file in files:
-        print('\n\includepdf[pages=-,')
-        print('pagecommand={\\thispagestyle{pdfpage}},')
-        print('scale=0.9,offset=0 -.25in,')
-        print('landscape=true]')
-        print('{',os.path.join(os.path.relpath(roots),file),'}',sep='')
-    print('\n%---\n')
+with open('drawings.tex','w') as drawings:
+    for roots, dirs, files in walk:
+        level = os.path.relpath(roots).count(os.sep)
+        drawings.write(
+            '{0}{{{1}}}\n\n'.format(latexLevels[level],os.path.basename(roots)))
+        files = [os.path.splitext(file)[0] for file in files]
+        for file in files:
+            drawings.write('\includepdf[pages=-,\n')
+            drawings.write('pagecommand={\\thispagestyle{pdfpage}},\n')
+            drawings.write('scale=0.9,offset=0 -.25in,\n')
+            drawings.write('landscape=true]\n')
+            drawings.write('{{{}}}\n\n'.format(
+                os.path.join(os.path.relpath(roots),file).replace(os.sep,os.altsep)))
